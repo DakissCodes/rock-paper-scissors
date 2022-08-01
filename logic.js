@@ -44,37 +44,43 @@ function game() {
         const result = playGame(playerChoice.toLowerCase(),computerChoice);
         console.log(result);
         if (result.slice(4,7) === 'won') {
-            
-            playerScore += 1
-            console.log('player score:'.concat(playerScore))
-            console.log('computer score:'.concat(computerScore))
 
-            if (playerScore === 3) {
-                console.log('Player has won the whole game!');
-                console.log('player score:'.concat(playerScore))
-                console.log('computer score:'.concat(computerScore))
-                break
-            }
+            playerScore += 1;
+            console.log('player score:'.concat(playerScore));
+            console.log('computer score:'.concat(computerScore));
+
         } else if (result.slice(4,8) === 'lost') {
-            computerScore += 1
-            console.log('player score:'.concat(playerScore))
-            console.log('computer score:'.concat(computerScore))
-
-            if (computerScore === 3) {
-                console.log('Computer has won the whole game!');
-                console.log('player score:'.concat(playerScore))
-                console.log('computer score:'.concat(computerScore))
-                break
-            }
+            computerScore += 1;
+            console.log('player score:'.concat(playerScore));
+            console.log('computer score:'.concat(computerScore));
 
         }
 
+        }
+
+    if (playerScore > computerScore) {
+        console.log('Player has won the whole game!');
+        console.log('player score:'.concat(playerScore));
+        console.log('computer score:'.concat(computerScore));
+
+    } else if (computerScore > playerScore) {
+        console.log('Computer has won the whole game!');
+        console.log('player score:'.concat(playerScore))
+        console.log('computer score:'.concat(computerScore))
         
+    } else {
+        console.log('The game is a draw!');
+        console.log('player score:'.concat(playerScore))
+        console.log('computer score:'.concat(computerScore))
+        
+    }
+
+
 
     }
     // 5 round game
 
-}
+
 game()
 
 
