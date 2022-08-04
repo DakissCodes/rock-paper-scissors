@@ -70,11 +70,10 @@ function game() {
         
     } else {
         console.log('The game is a draw!');
-        console.log('player score:'.concat(playerScore))
-        console.log('computer score:'.concat(computerScore))
+        console.log('player score:'.concat(playerScore));
+        console.log('computer score:'.concat(computerScore));
         
     }
-
 
 
     }
@@ -82,6 +81,8 @@ function game() {
 
 
 game()
+
+
 
 
 
