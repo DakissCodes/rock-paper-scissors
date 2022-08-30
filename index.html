@@ -3,8 +3,50 @@
     <head>
         <meta charset="utf-8">
         <title>Rock, Paper, Scissors</title>
-        <script src="logic.js"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
-    
+    <body>
+        <div class="container">
 
+            <div class="header-panel">
+                <h1>Rock Paper Scissors</h1>
+            </div> 
+            
+            <div id="score-panel">
+                <div class="score-box">
+                    <h2>Player</h2>
+                    <div id="player"></div>
+                </div>     
+                <div class="score-box">
+                    <h2>Computer</h2>
+                    <div id="computer"></div>
+                </div>     
+            </div> 
+                 
+            
+            
+             
+            <div id="choice-panel">
+                <div class="choice">
+                    <img src="img/paper.png" alt="paper">
+                    <h3>Paper</h3>
+                </div>
+
+                <div class="choice">
+                    <img src="img/rock.png" alt="rock">
+                    <h3>Rock</h3>
+                </div>
+
+                
+                <div class="choice">
+                    <img src="img/scissors.png" alt="scissors">
+                    <h3>Scissors</h3>
+                </div>
+            </div>
+            <div>player has won!</div> 
+        </div>
+        
+    </body> 
+    
+    <script src="logic.js"></script>
 </html>
