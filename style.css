@@ -11,8 +11,8 @@
     width: 1080px;
     display: flex;
     justify-content: flex-start; 
-}
-.container {
+0}
+#container {
     width: 1080px; 
     display: flex;
     align-items: center;
@@ -33,7 +33,7 @@ img:hover {
     align-items: center;
     justify-content: center;
     column-gap: 50px;
-    height: 500px;
+    height: 350px;
 }
 
 #score-board {
@@ -62,4 +62,10 @@ img:hover {
     height: 100px;
     width: 100px;
     border: 5px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    font-weight: bold;
+    
 }

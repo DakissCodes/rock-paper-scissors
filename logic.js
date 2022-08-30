@@ -1,11 +1,25 @@
 
-let imageList = document.getElementById('container').children
+let imageList = document.getElementById('choice-panel').children
 // choices
 
 let playerChoice = '';
 
 let playerScore = 0;
-let computerScore = 0;
+let computerScore = 0 ;
+let rounds = 1;  
+
+function gameWinner(message) {
+    
+    let textNode = document.createTextNode(message)
+    let messageDiv = document.createElement('div')
+    messageDiv.className = 'winner-log' 
+    messageDiv.appendChild(textNode)
+    
+    container.appendChild(messageDiv)
+    
+    
+}
+
 
 for (let child of imageList) {
     
@@ -20,37 +34,78 @@ for (let child of imageList) {
         
     })
 
-    child.firstElementChild.addEventListener('click', () => {
-        if (child.firstElementChild.alt === 'scissors') {
-            playerChoice = 'scissors';
-        } else if (child.firstElementChild.alt === 'rock') {
-            playerChoice = 'rock';
-             
-        } else if  (child.firstElementChild.alt === 'paper') {
-            playerChoice = 'paper';
-        }
+    child.firstElementChild.addEventListener('click', function rockPaperScissors() {
+        if (rounds === 5) {
+            
+            child.firstElementChild.removeEventListener('click', rockPaperScissors )
+            if (playerScore > computerScore) {
+                gameWinner("Player has won Rock Paper Scissors!")
+            } else if (computerScore > playerScore) {
+                gameWinner("Computer has won Rock Paper Scissors")
+            } else if (playerScore == computerScore) {
+                gameWinner("It is a draw!")
+            }
 
-    const computerChoice = getComputerChoice()
-    // gets computer choice 
+        } else {
 
-    
-    const result = playGame(playerChoice.toLowerCase(),computerChoice);
-    // plays the game
-    
-    
-    
-    // add new div
-    // append text node
-    // add to container body!
-    
-    
-    if (result === 1) {
-        console.log('player has won');
+            rounds += 1;
+            if (child.firstElementChild.alt === 'scissors') {
+                playerChoice = 'scissors';
+            } else if (child.firstElementChild.alt === 'rock') {
+                playerChoice = 'rock';
+                 
+            } else if  (child.firstElementChild.alt === 'paper') {
+                playerChoice = 'paper';
+            }
 
-    } else if (result === 2) {
-        console.log('computer has won')
-    } else if (result === 0) {
-        console.log('draw')
+            const computerChoice = getComputerChoice()
+            // gets computer choice 
+
+
+            const result = playGame(playerChoice.toLowerCase(),computerChoice);
+            // plays the game
+
+
+
+            // add new div
+            // append text node
+            // add to container body!
+            let container = document.getElementById('container');
+            let playerScoreBox = document.getElementById('player')
+            let computerScoreBox = document.getElementById('computer')
+
+            function gameLog(message) {
+
+                let textNode = document.createTextNode(message)
+                let gameLog = document.createElement('div')
+                gameLog.className = 'game-log' 
+
+                gameLog.appendChild(textNode)
+                container.appendChild(gameLog)
+
+                
+            }
+
+            if (result=== 1) {
+                gameLog('Player has won!')
+                console.log('player has won');
+                playerScore += 1;
+                playerScoreBox.textContent = playerScore;
+
+            } else if (result === 2) {
+                gameLog('Computer has won!')
+                computerScore += 1;
+                computerScoreBox.textContent = computerScore;
+                console.log('computer has won')
+            } else if (result === 0) {
+                gameLog('It is a draw! One more round is given!')
+                console.log('draw')
+
+                rounds -= 1;
+
+                    
+                }
+
     }
 
     })
