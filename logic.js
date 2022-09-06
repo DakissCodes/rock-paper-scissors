@@ -1,128 +1,62 @@
 
+const choices = ['rock','paper','scissors']
 let imageList = document.getElementById('choice-panel').children
-// choices
+let choicePanel = document.getElementById('choice-panel');
+let computerScoreBox = document.getElementById('computer')
+let playerScoreBox = document.getElementById('player')
+let headerPanel = document.querySelector('.header-panel').firstElementChild;
 
 let playerChoice = '';
-
 let playerScore = 0;
 let computerScore = 0 ;
 let rounds = 0;  
-let choicePanel = document.getElementById('choice-panel');
 
-function gameWinner(message) {
-    
-    let textNode = document.createTextNode(message)
-    let messageDiv = document.createElement('div')
-    messageDiv.className = 'winner-log' 
-    messageDiv.appendChild(textNode)
-    container.insertBefore(messageDiv, choicePanel)
-    
-    
-}
-function gameLog(message) {
+const audio = document.querySelector("audio[data-name='click-sound']");
 
-    let textNode = document.createTextNode(message)
-    let gameLog = document.createElement('div')
-    gameLog.className = 'game-log' 
+// ANIMATIONS
 
-    gameLog.appendChild(textNode)
-    container.appendChild(gameLog)
-}
-                
+headerPanel.addEventListener('mouseenter', (event) => {
+    headerPanel.style.fontSize = '2.05em'
+    console.log(event.target)
+ })
 
+headerPanel.addEventListener('mouseleave', () => {
+    headerPanel.style.fontSize = '2em' 
+})
 
-for (let child of imageList) {
-    
-
+for (let child of Array.from(imageList)) {
+     
     child.firstElementChild.addEventListener('mouseenter', () => {
         child.firstElementChild.style.height = '220px'
-        
     })
 
     child.firstElementChild.addEventListener('mouseleave', () => {
         child.firstElementChild.style.height = '200px'
-        
-    })
+    }) }
 
-    child.firstElementChild.addEventListener('click', function rockPaperScissors() {
+// GAME LOGIC
 
-        rounds += 1;
-        if (child.firstElementChild.alt === 'scissors') {
-            playerChoice = 'scissors';
-        } else if (child.firstElementChild.alt === 'rock') {
-            playerChoice = 'rock';
-                
-        } else if  (child.firstElementChild.alt === 'paper') {
-            playerChoice = 'paper';
-        }
+enableChoiceClick();
 
-        const computerChoice = getComputerChoice()
-        // gets computer choice 
-
-
-        const result = playGame(playerChoice.toLowerCase(),computerChoice);
-        // plays the game
-
-
-
-        // add new div
-        // append text node
-        // add to container body!
-        let container = document.getElementById('container');
-        let computerScoreBox = document.getElementById('computer')
-        let playerScoreBox = document.getElementById('player')
-
-        
-
-        if (result=== 1) {
-            gameLog('Player has won!')
-            console.log('player has won');
-            playerScore += 1;
-            playerScoreBox.textContent = playerScore;
-
-        } else if (result === 2) {
-            gameLog('Computer has won!')
-            computerScore += 1;
-            computerScoreBox.textContent = computerScore;
-            console.log('computer has won')
-        } else if (result === 0) {
-            gameLog('It is a draw! One more round is given!')
-            console.log('draw')
-
-            rounds -= 1;
-        }
-                    
-
-        if (rounds === 5) {
-            
-            child.firstElementChild.removeEventListener('click', rockPaperScissors )
-            if (playerScore > computerScore) {
-                gameWinner("Player has won Rock Paper Scissors!")
-            } else if (computerScore > playerScore) {
-                gameWinner("Computer has won Rock Paper Scissors")
-            } else if (playerScore == computerScore) {
-                gameWinner("It is a draw!")
-            }
-
-        }
-
-    })
-    
+function enableChoiceClick() {
+    // adds the event listeners for each image
+    for (let child of imageList) {
+        console.log('event listener added')
+        child.firstElementChild.addEventListener('click',rockPaperScissors)
+    }
 }
 
 
-const choices = ['rock','paper','scissors']
 
 function getComputerChoice() {
     let numChoice = Math.floor(Math.random() * choices.length)
     return choices[numChoice]
     // returns the computer's choice
-}
+ }
 
+    
 function playGame(playerSelection,computerSelection) {
-    // plays one round of rock paper scissors
-    // returns a string
-// make sure inputs are case insensitive
+    // decides the winner
     if (playerSelection === computerSelection) {
         return 0;
     } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
@@ -144,64 +78,103 @@ function playGame(playerSelection,computerSelection) {
 }
 
 
-// task one - add event listener to each image
-// if an event is clicked, set player choice as the corresponding choice
+function gameWinner(message) {
+    // adds winner of game text in DOM    
+    let textNode = document.createTextNode(message)
+    let messageDiv = document.createElement('div')
+    
+    messageDiv.className = 'winner-log' 
+    messageDiv.appendChild(textNode)
+    container.insertBefore(messageDiv, choicePanel)
+    
+    
+}
+function roundLog(message) {
+    // adds winner of round text in DOM
+    let textNode = document.createTextNode(message)
+    let gameLog = document.createElement('div')
+    gameLog.className = 'game-log' 
 
+    gameLog.appendChild(textNode)
+    container.appendChild(gameLog)
+}
 
+function rockPaperScissors(event) {
+    console.log(rounds)
+    audio.currentTime = 0;
+    audio.play()
+    playerChoice = event.target.alt; 
+    rounds += 1;
+    const computerChoice = getComputerChoice()
+    const result = playGame(playerChoice,computerChoice);
 
-
-function game() {
-
-
-    // for (i = 0; i < 5; i++) {
-        // starts from 0, stops when condition is != true.
-            //
-        // playerChoice = prompt('Rock, Paper or Scissors?: ', '')
-        // const computerChoice = getComputerChoice()
-
-        // const result = playGame(playerChoice.toLowerCase(),computerChoice);
-        // console.log(result);
-        
-        // if (result.slice(4,7) === 'won') {
-
-        //     playerScore += 1;
-        //     console.log('player score:'.concat(playerScore));
-        //     console.log('computer score:'.concat(computerScore));
-
-        // } else if (result.slice(4,8) === 'lost') {
-        //     computerScore += 1;
-        //     console.log('player score:'.concat(playerScore));
-        //     console.log('computer score:'.concat(computerScore));
-
-        // }
-
-        // }
-
-    // if (playerScore > computerScore) {
-    //     console.log('Player has won the whole game!');
-    //     console.log('player score:'.concat(playerScore));
-    //     console.log('computer score:'.concat(computerScore));
-
-    // } else if (computerScore > playerScore) {
-    //     console.log('Computer has won the whole game!');
-    //     console.log('player score:'.concat(playerScore))
-    //     console.log('computer score:'.concat(computerScore))
-        
-    // } else {
-    //     console.log('The game is a draw!');
-    //     console.log('player score:'.concat(playerScore));
-    //     console.log('computer score:'.concat(computerScore));
-        
-    // }
-
-
+    
+    if (result=== 1) {
+        roundLog('Player has won!')
+        playerScore += 1;
+        playerScoreBox.textContent = playerScore;
+    } else if (result === 2) {
+        roundLog('Computer has won!')
+        computerScore += 1;
+        computerScoreBox.textContent = computerScore;
+    } else if (result === 0) {
+        roundLog('It is a draw! One more round is given!')
+        rounds -= 1;
     }
-    // 5 round game
+                
+    if (rounds === 5) {
 
+        for (let child of imageList) {
+            child.firstElementChild.removeEventListener('click',rockPaperScissors)
+        }
 
-game()
+        if (playerScore > computerScore) {
+            gameWinner("Player has won Rock Paper Scissors!")
+        } else if (computerScore > playerScore) {
+            gameWinner("Computer has won Rock Paper Scissors!")
+        } else if (playerScore == computerScore) {
+            gameWinner("It is a draw!")
+        }
+        
+        let resetButton = document.createElement('button')
+        resetButton.className = 'reset-button'
+        resetButton.textContent = 'Play Again?'
+        container.appendChild(resetButton)  
+        resetButton.addEventListener('mouseenter', () => {
+            resetButton.style.height = '60px';
+            resetButton.style.width = '160px';
+        })        
+        resetButton.addEventListener('mouseleave', () => {
+            resetButton.style.height = '50px';
+            resetButton.style.width = '150px';
+        })        
 
+        resetButton.addEventListener('click', () => {
 
+            let gameLogs = document.querySelectorAll('.game-log')
+            
+            gameLogs.forEach(box => {
+                box.remove();
+            })
+
+            rounds = 0;
+            playerScore = 0;
+            computerScore = 0;
+            computerScoreBox.textContent = 0;
+            playerScoreBox.textContent = 0;
+
+            let winnerLog = document.querySelector('.winner-log')
+            winnerLog.remove();
+        
+            
+            resetButton.remove()
+            enableChoiceClick();
+
+            
+        })
+    }
+
+}
 
 
 
